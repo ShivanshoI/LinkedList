@@ -1,0 +1,66 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def insert(head, data):
+    new_node = Node(data)
+    new_node.next = head
+    return new_node
+
+def print_list(head):
+    current = head
+    result = []
+    while current:
+        result.append(current.data)
+        current = current.next
+    print(result)
+
+def bubble_sort(head, ascending=True):
+    if not head or not head.next:
+        return head
+
+    end = None
+    while end != head:
+        current = head
+        while current.next != end:
+            next_node = current.next
+            if (ascending and current.data > next_node.data) or (not ascending and current.data < next_node.data):
+                current.data, next_node.data = next_node.data, current.data
+            current = current.next
+        end = current
+    return head
+
+def search(head, target):
+    current = head
+    while current:
+        if current.data == target:
+            return True
+        current = current.next
+    return False
+
+head = None
+numbers = input("Enter numbers ").split()
+numbers = [int(num) for num in numbers]
+    
+for num in numbers:
+    head = insert(head, num)
+    
+print("Original :")
+print_list(head)
+    
+head = bubble_sort(head, ascending=True)
+print("ascending order:")
+print_list(head)
+    
+head = bubble_sort(head, ascending=False)
+print("descending order:")
+print_list(head)
+    
+target = int(input(" to search: "))
+if search(head, target):
+    print(f"{target} is present in the list.")
+else:
+    print(f"{target} is not present in the list.")
+
+
